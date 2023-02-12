@@ -1,7 +1,8 @@
-import icon from '../../public/favicon.ico';
-import leaflet from 'leaflet';
+import icon from '../public/favicon.ico';
 import { useMap } from 'react-leaflet';
-import { place } from '../../types/mapTypes';
+import leaflet from 'leaflet';
+
+import { place } from '../types/mapTypes';
 
 // ikonka
 export const myIcon = new leaflet.Icon({
