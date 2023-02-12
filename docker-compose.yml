@@ -5,6 +5,7 @@ services:
   pocketbase:
     container_name: pocketbase
     image: pocketbase:latest
+    build: /db
     restart: unless-stopped
     # command:
     #   - --encryptionEnv #optional
@@ -23,6 +24,18 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  nextjs:
+    container_name: nextjs
+    image: nextjs:latest
+    build:
+      context: .
+      # args:
+      #   - NODE_ENV=production
+    ports:
+      - '3000:3000'
+    networks:
+      - my-network
 
 networks:
   my-network:
