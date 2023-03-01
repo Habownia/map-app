@@ -44,6 +44,14 @@ export default function Map() {
 	async function handleSubmit(e: any) {
 		await e.preventDefault();
 		setPlace(await getCoords(inputPlace));
+		const response = await fetch('/api/add', {
+			method: 'POST',
+			body: JSON.stringify(place),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		const data = await response.json();
 		{
 			// setPlace({
 			// 	place_id: 246420989,
@@ -71,14 +79,6 @@ export default function Map() {
 			// 		country_code: 'pl',
 			// 	},
 			// });
-			// const response = await fetch('/api/add', {
-			// 	method: 'POST',
-			// 	body: JSON.stringify(placesArray),
-			// 	headers: {
-			// 		'Content-Type': 'application/json',
-			// 	},
-			// });
-			// const data = await response.json();
 		}
 	}
 
