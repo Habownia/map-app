@@ -1,5 +1,8 @@
 /* eslint-disable @next/next/no-head-element */
 
+import Nav from '../components/Nav';
+import style from '../sass/Main.module.scss';
+
 export default function RootLayout({
 	children,
 }: {
@@ -8,8 +11,8 @@ export default function RootLayout({
 	return (
 		<html>
 			<head></head>
-			<body>
-				<nav>Aplikacja</nav>
+			<body className={style.body}>
+				<Nav />
 				{children}
 			</body>
 		</html>

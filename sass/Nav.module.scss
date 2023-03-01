@@ -1,0 +1,33 @@
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 5em;
+	backdrop-filter: blur(15px);
+	// background-color: #333;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+
+	p {
+		font-size: 1.8em;
+	}
+
+	.logoIcon {
+		font-size: 2em;
+	}
+}
+
+.list {
+	display: flex;
+	gap: 3em;
+	padding: 0;
+	font-size: 1.1em;
+	li {
+		list-style-type: none;
+		cursor: pointer;
+	}
+}
