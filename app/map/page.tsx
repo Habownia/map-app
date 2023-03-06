@@ -2,6 +2,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
+import { uniqueArray, apiAdd } from '@/components/dbActions';
+
 // żeby się nie rozwaliła mapa
 import 'leaflet/dist/leaflet.css';
 
@@ -41,17 +43,19 @@ export default function Map() {
 	const [inputPlace, setInputPlace] = useState('');
 	const [placesArray, setPlacesArray] = useState<any>([]);
 
+	// ustawia przy pierwszym renderze jako placesArray elementy z db
+	useEffect(() => {
+		(async () => {
+			const places = await uniqueArray();
+			let placesExtracted = places.map((elem) => elem.dataDB);
+			setPlacesArray(placesExtracted);
+		})();
+	}, []);
+
 	async function handleSubmit(e: any) {
 		await e.preventDefault();
 		setPlace(await getCoords(inputPlace));
-		const response = await fetch('/api/add', {
-			method: 'POST',
-			body: JSON.stringify(place),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-		const data = await response.json();
+
 		{
 			// setPlace({
 			// 	place_id: 246420989,
@@ -96,6 +100,8 @@ export default function Map() {
 				return [...uniqueArray, place];
 			} else if (place) {
 				return [place];
+			} else {
+				return prevPlacesArray;
 			}
 		});
 
@@ -176,6 +182,9 @@ export default function Map() {
 			// 	},
 			// ]);
 		}
+
+		// przy każdym dodaniu miejsca updatuje db
+		(async () => await apiAdd(place))();
 	}, [place]);
 
 	if (placesArray) {
