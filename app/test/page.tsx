@@ -1,5 +1,6 @@
-import PocketBase from 'pocketbase';
 import { uniqueArray } from '@/components/dbActions';
+
+import styles from '../../sass/Test.module.scss';
 
 export default async function Test() {
 	// tworzy unikalny array bazując na place_id
@@ -14,9 +15,9 @@ export default async function Test() {
 	});
 
 	return (
-		<div>
+		<div className={styles.main}>
 			<h1>Zdjęcia</h1>
-			{placesNames}
+			<div>{placesNames}</div>
 		</div>
 	);
 }

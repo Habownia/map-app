@@ -3,9 +3,11 @@ import { useEffect, useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
 import { uniqueArray, apiAdd } from '@/components/dbActions';
+import { TbSearch } from 'react-icons/tb';
 
 // żeby się nie rozwaliła mapa
 import 'leaflet/dist/leaflet.css';
+import style from '../../sass/Map.module.scss';
 
 import { place } from '../../types/mapTypes';
 
@@ -189,19 +191,35 @@ export default function Map() {
 
 	if (placesArray) {
 		var placesParagraph = placesArray.map((elem: place) => {
-			return <p key={elem.place_id}>{elem.display_name}</p>;
+			const placeName = elem.display_name.split(', ');
+			return (
+				<p key={elem.place_id}>
+					<span>{placeName[0]}</span>, {placeName[1]}
+				</p>
+			);
 		});
 	}
 
 	return (
-		<>
+		<div className={style.main}>
 			<MapLeaflet placesArray={placesArray} />
-			<form onSubmit={handleSubmit}>
-				Wpisz nazwę miejscowości:
-				<input type='text' value={inputPlace || ''} onChange={handleChange} />
-				<button type='submit'>Submit</button>
-			</form>
-			{placesParagraph}
-		</>
+			<div className={style.form_cont}>
+				<form onSubmit={handleSubmit}>
+					<div className={style.search}>
+						<input
+							type='text'
+							value={inputPlace || ''}
+							onChange={handleChange}
+							placeholder='Wyszukaj miejscowość'
+						/>
+						<button type='submit' className={style.submit}>
+							<TbSearch className={style.glass} />
+							{/* <p className={style.tooltip}>Search</p> */}
+						</button>
+					</div>
+				</form>
+				<div className={style.results}>{placesParagraph}</div>
+			</div>
+		</div>
 	);
 }

@@ -1,0 +1,83 @@
+$bgc_input: #e4e9ec;
+
+.main {
+	display: flex;
+	justify-content: space-around;
+}
+
+.form_cont {
+	display: flex;
+	flex-direction: column;
+	// align-items: center;
+	gap: 2ch;
+	width: 40%;
+
+	form {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+	}
+}
+
+@mixin input-reset {
+	border: 0px;
+	outline: 0;
+	font-size: 1.2em;
+}
+
+.search {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 2em;
+	width: 60%;
+	padding: 0.5ch 2ch;
+	background-color: $bgc_input;
+	border-radius: 20px;
+	input {
+		height: 100%;
+		width: 88%;
+		@include input-reset();
+		font-family: 'Chivo', sans-serif;
+		background-color: transparent;
+	}
+	button {
+		position: relative;
+		display: flex;
+		&:hover {
+			.glass {
+				scale: 1.4;
+			}
+			.tooltip {
+				display: block;
+			}
+		}
+	}
+}
+
+.glass {
+	transition: scale linear 0.1s;
+	font-size: 1.2em;
+}
+
+.tooltip {
+	display: none;
+	position: absolute;
+	bottom: 70%;
+	left: -50%;
+	font-size: 0.8em;
+	padding: 5px 9px;
+	color: white;
+	background-color: black;
+	border-radius: 8px;
+}
+
+.submit {
+	@include input-reset();
+	background-color: transparent;
+	cursor: pointer;
+}
+
+// .results {
+// 	// width: 80%;
+// }
