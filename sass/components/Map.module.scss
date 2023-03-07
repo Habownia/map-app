@@ -1,0 +1,19 @@
+.map_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 400px;
+	width: 700px;
+	font-size: 2em;
+	background-color: #9a9d9f;
+	animation: change-color 2s linear infinite alternate;
+}
+
+@keyframes change-color {
+	from {
+		background-color: #9a9d9f;
+	}
+	to {
+		background-color: #bec0c2;
+	}
+}

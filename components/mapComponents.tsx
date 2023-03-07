@@ -1,6 +1,9 @@
-import icon from '../public/favicon.ico';
+import { useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import leaflet from 'leaflet';
+
+import style from '../sass/components/Map.module.scss';
+import icon from '../public/favicon.ico';
 
 import { place } from '../types/mapTypes';
 
@@ -20,4 +23,26 @@ export function ChangeView({ center, zoom }: any) {
 
 export function getPosition(elem: place): any {
 	return elem?.lat && elem.lon ? [elem.lat, elem.lon] : [55, 22];
+}
+
+export function MapLoader() {
+	const [dots, setDots] = useState('');
+
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setDots((prevState: string) => {
+				if (prevState.length >= 3) {
+					return '';
+				}
+				return `${prevState}.`;
+			});
+		}, 800);
+		return () => clearInterval(timer);
+	}, []);
+
+	return (
+		<div className={style.map_container}>
+			<p>Loading{dots}</p>
+		</div>
+	);
 }
