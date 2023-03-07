@@ -2,8 +2,8 @@ import PocketBase from 'pocketbase';
 
 // zwraca unikalną tablicę z bazy danych
 export async function uniqueArray() {
-	// const pb = new PocketBase('http://0.0.0.0:8090');
-	const pb = new PocketBase('http://localhost:8090');
+	// const pb = new PocketBase('http://localhost:8090');
+	const pb = new PocketBase(`http://${process.env.NEXT_PUBLIC_HOST}`);
 
 	const resultList = await pb.collection('places').getList(1, 50);
 

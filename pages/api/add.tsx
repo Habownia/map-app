@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import PocketBase from 'pocketbase';
 
 async function AddtoDB(req: NextApiRequest, res: NextApiResponse) {
-	const pb = new PocketBase('http://127.0.0.1:8090');
+	const pb = new PocketBase(`http://${process.env.NEXT_PUBLIC_HOST}:8090`);
 	if (req.method === 'POST') {
 		const data = req.body;
 		// przy tworzeniu trzeba zprecyzować nazwę

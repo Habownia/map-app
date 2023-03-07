@@ -1,12 +1,18 @@
+'use client';
 import { uniqueArray } from '@/components/dbActions';
+import { useState } from 'react';
 
 import styles from '../../sass/Test.module.scss';
 
-export default async function Test() {
+export default function Test() {
 	// tworzy unikalny array bazując na place_id
-	const uniquePlaces = await uniqueArray();
+	const [uniquePlaces, setUniquePlaces] = useState<any>();
+	(async () => {
+		setUniquePlaces(await uniqueArray());
+	})();
+	// const uniquePlaces = await uniqueArray();
 
-	const placesNames = uniquePlaces.map((elem) => {
+	const placesNames = uniquePlaces?.map((elem: any) => {
 		return (
 			<div key={elem.id}>
 				<p>{elem.dataDB.display_name}</p>
