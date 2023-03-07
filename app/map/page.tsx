@@ -4,11 +4,12 @@ import dynamic from 'next/dynamic';
 
 import { uniqueArray, apiAdd } from '@/components/dbActions';
 import { TbSearch } from 'react-icons/tb';
-import { MapLoader } from '@/components/mapComponents';
+// import { MapLoader } from '@/components/mapComponents';
 
 // żeby się nie rozwaliła mapa
 import 'leaflet/dist/leaflet.css';
 import style from '../../sass/Map.module.scss';
+import mapStyle from '../../sass/components/Map.module.scss';
 
 import { place } from '../../types/mapTypes';
 
@@ -30,7 +31,12 @@ export default function Map() {
 	const MapLeaflet = useMemo(
 		() =>
 			dynamic(() => import('../../components/map'), {
-				loading: () => <MapLoader />,
+				loading: () => (
+					<div className={`${mapStyle.loader} ${mapStyle.map_container}`}>
+						<p>Loading</p>
+					</div>
+				),
+
 				ssr: false, // zapobiega SSR
 			}),
 		[]

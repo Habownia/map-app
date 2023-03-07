@@ -13,7 +13,6 @@ export async function uniqueArray() {
 			index ===
 			self.findIndex((p) => p.dataDB.place_id === place.dataDB.place_id)
 	);
-	console.log(uniquePlaces);
 
 	return uniquePlaces;
 }

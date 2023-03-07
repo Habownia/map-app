@@ -1,9 +1,12 @@
 .map_container {
+	height: 400px;
+	width: 700px;
+}
+
+.loader {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 400px;
-	width: 700px;
 	font-size: 2em;
 	background-color: #9a9d9f;
 	animation: change-color 2s linear infinite alternate;
