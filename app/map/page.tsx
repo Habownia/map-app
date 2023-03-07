@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 import { uniqueArray, apiAdd } from '@/components/dbActions';
 import { TbSearch } from 'react-icons/tb';
+import { MapLoader } from '@/components/mapComponents';
 
 // żeby się nie rozwaliła mapa
 import 'leaflet/dist/leaflet.css';
@@ -29,7 +30,7 @@ export default function Map() {
 	const MapLeaflet = useMemo(
 		() =>
 			dynamic(() => import('../../components/map'), {
-				loading: () => <p>A map is loading</p>,
+				loading: () => <MapLoader />,
 				ssr: false, // zapobiega SSR
 			}),
 		[]
