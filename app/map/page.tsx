@@ -12,6 +12,7 @@ import style from '../../sass/Map.module.scss';
 import mapStyle from '../../sass/components/Map.module.scss';
 
 import { place } from '../../types/mapTypes';
+import Link from 'next/link';
 
 async function getCoords(place: string) {
 	const preparedPlace = place.toLowerCase().replaceAll(' ', '+');
@@ -200,9 +201,13 @@ export default function Map() {
 		var placesParagraph = placesArray.map((elem: place) => {
 			const placeName = elem.display_name.split(', ');
 			return (
-				<p key={elem.place_id}>
+				<Link
+					href={`/map/${elem.place_id}`}
+					key={elem.place_id}
+					className={style.place}
+				>
 					<span>{placeName[0]}</span>, {placeName[1]}
-				</p>
+				</Link>
 			);
 		});
 	}

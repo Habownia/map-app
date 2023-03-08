@@ -1,3 +1,5 @@
+import { Record } from 'pocketbase';
+
 export type place = {
 	place_id: number;
 	licence: string;
@@ -24,3 +26,7 @@ export type place = {
 		  }
 		| undefined;
 };
+
+export interface dbPlace extends Record {
+	dataDB: place;
+}

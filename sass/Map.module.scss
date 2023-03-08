@@ -78,6 +78,16 @@ $bgc_input: #e4e9ec;
 	cursor: pointer;
 }
 
-// .results {
-// 	// width: 80%;
-// }
+.results {
+	// width: 80%;
+	display: flex;
+	gap: 1.2em;
+	flex-direction: column;
+}
+
+.place {
+	width: fit-content;
+	font-size: 1.1em;
+	color: black;
+	text-decoration: none;
+}
