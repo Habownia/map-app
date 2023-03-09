@@ -35,5 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#pocketbase
+# pocketbase
 pb_data
+
+#linczki
+LINCZKI.md
