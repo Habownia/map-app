@@ -212,6 +212,7 @@ export default function Map() {
 		});
 	}
 
+	// TODO możliwość dodania miejscowości przez mapę
 	return (
 		<div className={style.main}>
 			<MapLeaflet placesArray={placesArray} />
