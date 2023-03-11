@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import Chart from '@/components/chart';
+import WeatherChart from '@/components/chart';
 
 import { dbPlace } from '@/types/mapTypes';
 
@@ -71,7 +71,7 @@ export default function PlacesId({ params }: any) {
 	return (
 		<div>
 			<p>{placeName}</p>
-			{weather && <Chart weather={weather} placeName={placeName} />}
+			{weather && <WeatherChart weather={weather} placeName={placeName} />}
 		</div>
 	);
 }

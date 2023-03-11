@@ -7,9 +7,13 @@ import {
 	Title,
 	Tooltip,
 	Filler,
+	BarElement,
 	Legend,
+	LineController,
+	BarController,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import { weather } from '@/types/chartTypes';
 
@@ -21,10 +25,20 @@ ChartJS.register(
 	Title,
 	Tooltip,
 	Filler,
-	Legend
+	BarElement,
+	Legend,
+	LineController,
+	BarController,
+	ChartDataLabels
 );
 
-export default function Chart({
+const colors = {
+	darkOrange: '#ffb700',
+	orange: '#f6b717',
+	lightOrange: '#f7ce6779',
+};
+
+export default function WeatherChart({
 	weather,
 	placeName,
 }: {
@@ -42,19 +56,25 @@ export default function Chart({
 		labels: weatherHours,
 		datasets: [
 			{
+				type: 'line' as const,
 				fill: true,
 				label: 'Temperatura',
 				data: weatherHours.map(
 					(elem: any, index: number) => weather.hourly.temperature_2m[index]
 				),
-				borderColor: 'rgb(53, 162, 235)',
-				backgroundColor: 'rgba(53, 162, 235, 0.5)',
+				tension: 0.5,
+				borderColor: colors.darkOrange,
+				backgroundColor: colors.lightOrange,
 			},
 		],
 	};
 
 	const options = {
 		responsive: true,
+		interaction: {
+			mode: 'index' as const,
+			intersect: false,
+		},
 		plugins: {
 			legend: {
 				position: 'top' as const,
@@ -62,9 +82,65 @@ export default function Chart({
 			title: {
 				display: true,
 				text: `Pogoda - ${placeName}`,
+				font: {
+					size: 20,
+				},
+			},
+			datalabels: {
+				anchor: 'end' as const,
+				align: 'center' as const,
+				formatter: (value: any, context: any) => {
+					return value + ' °C';
+				},
+
+				color: 'black',
+				backgroundColor: '#f9f9f9',
+				borderColor: colors.orange,
+				borderRadius: 12,
+				borderWidth: 2,
+				padding: 5,
+				font: {
+					size: 17,
+					// weight: 'bold' as const,
+				},
+			},
+			tooltip: {
+				caretSize: 0,
+				caretPadding: 30,
+				// position: 'average',
+			},
+		},
+		elements: {
+			// wyłączenie powiększania się kropki
+			point: {
+				radius: 0,
+				pointHoverRadius: 0,
+			},
+		},
+		scales: {
+			x: {
+				position: 'top' as const,
+				title: {
+					display: true,
+					text: 'Godziny',
+				},
+				stacked: true,
+			},
+			y: {
+				title: {
+					display: true,
+					text: 'Dane',
+				},
+				stacked: true,
+				ticks: {
+					callback: (value: any) => {
+						return value + '°C';
+					},
+				},
 			},
 		},
 	};
 
-	return <Line options={options} data={data} />;
+	return <Chart type='bar' options={options} data={data} />;
+	// return <Line options={options} data={data} />;
 }
