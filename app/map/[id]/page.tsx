@@ -4,24 +4,7 @@ import { useEffect, useState } from 'react';
 import WeatherChart from '@/components/chart';
 
 import { dbPlace } from '@/types/mapTypes';
-
-type weather = {
-	latitude: number;
-	longitude: number;
-	generationtime_ms: number;
-	utc_offset_seconds: number;
-	timezone: string;
-	timezone_abbreviation: string;
-	elevation: number;
-	hourly_units: {
-		time: string;
-		temperature_2m: string;
-	};
-	hourly: {
-		time: string[];
-		temperature_2m: number[];
-	};
-};
+import { weather } from '@/types/chartTypes';
 
 async function getData(id: any) {
 	const res = await fetch(
@@ -34,7 +17,7 @@ async function getData(id: any) {
 
 async function getWeather(lat: string, lon: string) {
 	const res = await fetch(
-		`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m`
+		`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relativehumidity_2m&forecast_days=16`
 	);
 	return await res.json();
 }
@@ -63,9 +46,9 @@ export default function PlacesId({ params }: any) {
 
 	const placeName = place ? place.dataDB.display_name.split(', ')[0] : '';
 
-	if (weather) {
-		console.log(weather);
-	}
+	// if (weather) {
+	// 	console.log(weather);
+	// }
 
 	// TODO ostylowanie
 	return (

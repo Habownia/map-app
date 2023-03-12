@@ -35,8 +35,11 @@ ChartJS.register(
 
 const colors = {
 	darkOrange: '#ffb700',
-	orange: '#f6b717',
-	lightOrange: '#f7ce6779',
+	orange: '#ffac59',
+	lightOrange: '#f1e18998',
+	darkBlue: '#01C5C4',
+	blue: '#75CFB8',
+	lightBlue: '#75cfb9',
 };
 
 export default function WeatherChart({
@@ -54,6 +57,8 @@ export default function WeatherChart({
 	// jeśli wolimy mieć na więcej godzin zmieniamy zmienną
 	const forecastHours = 24 + currentTime;
 	const weatherHours = [];
+
+	// console.log(weather);
 
 	for (
 		let i = currentTime;
@@ -77,6 +82,19 @@ export default function WeatherChart({
 				tension: 0.5,
 				borderColor: colors.darkOrange,
 				backgroundColor: colors.lightOrange,
+			},
+			{
+				type: 'bar' as const,
+				yAxisID: 'y1',
+				// fill: true,
+				label: 'Wilgotność',
+				data: weatherHours.map(
+					(elem: any, index: number) =>
+						weather.hourly.relativehumidity_2m[index + currentTime]
+				),
+				tension: 0.5,
+				borderColor: colors.darkBlue,
+				backgroundColor: colors.lightBlue,
 			},
 		],
 	};
@@ -102,24 +120,41 @@ export default function WeatherChart({
 				anchor: 'end' as const,
 				align: 'center' as const,
 				formatter: (value: any, context: any) => {
-					return value + ' °C';
+					return value + (context.dataset.label == 'Wilgotność' ? ' %' : '°C');
 				},
 
 				color: 'black',
 				backgroundColor: '#f9f9f9',
-				borderColor: colors.orange,
+				borderColor: (context: any) => context.dataset.borderColor,
 				borderRadius: 12,
 				borderWidth: 2,
-				padding: 5,
+				padding: 6,
+				// width: 55,
 				font: {
-					size: 17,
+					size: 14,
 					// weight: 'bold' as const,
 				},
+				offset: 4,
+				clip: true,
 			},
 			tooltip: {
 				caretSize: 0,
-				caretPadding: 30,
-				// position: 'average',
+				caretPadding: -60,
+				position: 'average' as const,
+				callbacks: {
+					label: function (context: any) {
+						const label = context.dataset.label;
+						let value = `${label}: ${context.formattedValue}`;
+
+						if (label == 'Wilgotność') {
+							value += '%';
+						} else if (label == 'Temperatura') {
+							value += '°C';
+						}
+
+						return value;
+					},
+				},
 			},
 		},
 		elements: {
@@ -141,12 +176,27 @@ export default function WeatherChart({
 			y: {
 				title: {
 					display: true,
-					text: 'Dane',
+					text: 'Temperatura',
 				},
 				stacked: true,
 				ticks: {
+					stepSize: 2,
 					callback: (value: any) => {
 						return value + '°C';
+					},
+				},
+			},
+			y1: {
+				position: 'right' as const,
+				title: {
+					display: true,
+					text: 'Wilgotność',
+				},
+				stacked: true,
+				ticks: {
+					stepSize: 20,
+					callback: (value: any) => {
+						return value + '%';
 					},
 				},
 			},

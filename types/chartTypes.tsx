@@ -9,9 +9,11 @@ export type weather = {
 	hourly_units: {
 		time: string;
 		temperature_2m: string;
+		relativehumidity_2m: string;
 	};
 	hourly: {
 		time: string[];
 		temperature_2m: number[];
+		relativehumidity_2m: number[];
 	};
 };
