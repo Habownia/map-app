@@ -36,7 +36,10 @@ export default function Map({ placesArray }: any) {
 						},
 					}}
 				>
-					<Tooltip>{`${elem.display_name.split(', ')[0]}`}</Tooltip>
+					<Tooltip>
+						{/* sprawdza czy obiekt nie jest pusty */}
+						{elem.display_name && `${elem.display_name.split(', ')[0]}`}
+					</Tooltip>
 				</Marker>
 			);
 		});

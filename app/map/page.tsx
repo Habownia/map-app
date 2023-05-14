@@ -2,8 +2,10 @@
 import { useEffect, useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
+import Link from 'next/link';
 import { uniqueArray, apiAdd } from '@/utils/dbActions';
 import { TbSearch } from 'react-icons/tb';
+import { DUMMY_PLACES_ARRAY, DUMMY_PLACE } from '@/utils/dummy';
 
 // żeby się nie rozwaliła mapa
 import 'leaflet/dist/leaflet.css';
@@ -11,7 +13,6 @@ import style from '../../sass/MapPage.module.scss';
 import mapLoaderStyle from '../../sass/MapLoader.module.scss';
 
 import { place } from '../../types/mapTypes';
-import Link from 'next/link';
 
 async function getCoords(place: string) {
 	const preparedPlace = place.toLowerCase().replaceAll(' ', '+');
@@ -66,35 +67,7 @@ export default function Map() {
 	async function handleSubmit(e: any) {
 		await e.preventDefault();
 		setPlace(await getCoords(inputPlace));
-
-		{
-			// setPlace({
-			// 	place_id: 246420989,
-			// 	licence:
-			// 		'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
-			// 	osm_type: 'way',
-			// 	osm_id: 702913690,
-			// 	boundingbox: ['49.7323576', '49.7324997', '20.6864255', '20.6866443'],
-			// 	lat: '49.73242865',
-			// 	lon: '20.686534899999998',
-			// 	display_name:
-			// 		'16, Znamirowice, gmina Łososina Dolna, powiat nowosądecki, województwo małopolskie, 33-312, Polska',
-			// 	class: 'building',
-			// 	type: 'yes',
-			// 	importance: 0.21000999999999997,
-			// 	address: {
-			// 		house_number: '16',
-			// 		village: 'Znamirowice',
-			// 		municipality: 'gmina Łososina Dolna',
-			// 		county: 'powiat nowosądecki',
-			// 		state: 'województwo małopolskie',
-			// 		'ISO3166-2-lvl4': 'PL-12',
-			// 		postcode: '33-312',
-			// 		country: 'Polska',
-			// 		country_code: 'pl',
-			// 	},
-			// });
-		}
+		// setPlace(DUMMY_PLACE);
 	}
 
 	// Przy każdej zmianie miejsca update'uje tablice
@@ -115,84 +88,7 @@ export default function Map() {
 				return prevPlacesArray;
 			}
 		});
-
-		{
-			// setPlacesArray([
-			// 	{
-			// 		place_id: 308965113,
-			// 		licence:
-			// 			'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
-			// 		osm_type: 'relation',
-			// 		osm_id: 6091708,
-			// 		boundingbox: ['49.719964', '49.7529', '20.6648305', '20.7215888'],
-			// 		lat: '49.7318564',
-			// 		lon: '20.6788594',
-			// 		display_name:
-			// 			'Znamirowice, gmina Łososina Dolna, powiat nowosądecki, województwo małopolskie, Polska',
-			// 		class: 'boundary',
-			// 		type: 'administrative',
-			// 		importance: 0.3644313097683034,
-			// 		icon: 'https://nominatim.openstreetmap.org/ui/mapicons/poi_boundary_administrative.p.20.png',
-			// 		address: {
-			// 			village: 'Znamirowice',
-			// 			municipality: 'gmina Łososina Dolna',
-			// 			county: 'powiat nowosądecki',
-			// 			state: 'województwo małopolskie',
-			// 			'ISO3166-2-lvl4': 'PL-12',
-			// 			country: 'Polska',
-			// 			country_code: 'pl',
-			// 		},
-			// 	},
-			// 	{
-			// 		place_id: 308499148,
-			// 		licence:
-			// 			'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
-			// 		osm_type: 'relation',
-			// 		osm_id: 6092085,
-			// 		boundingbox: ['49.7349146', '49.7638138', '20.6704736', '20.7060652'],
-			// 		lat: '49.7431362',
-			// 		lon: '20.6873342',
-			// 		display_name:
-			// 			'Tabaszowa, gmina Łososina Dolna, powiat nowosądecki, województwo małopolskie, Polska',
-			// 		class: 'boundary',
-			// 		type: 'administrative',
-			// 		importance: 0.3660971516994237,
-			// 		icon: 'https://nominatim.openstreetmap.org/ui/mapicons/poi_boundary_administrative.p.20.png',
-			// 		address: {
-			// 			village: 'Tabaszowa',
-			// 			municipality: 'gmina Łososina Dolna',
-			// 			county: 'powiat nowosądecki',
-			// 			state: 'województwo małopolskie',
-			// 			'ISO3166-2-lvl4': 'PL-12',
-			// 			country: 'Polska',
-			// 			country_code: 'pl',
-			// 		},
-			// 	},
-			// 	{
-			// 		place_id: 308084287,
-			// 		licence:
-			// 			'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright',
-			// 		osm_type: 'relation',
-			// 		osm_id: 2904794,
-			// 		boundingbox: ['49.5549437', '49.6655553', '20.6484062', '20.7648749'],
-			// 		lat: '49.61030395',
-			// 		lon: '20.714936589668028',
-			// 		display_name: 'Nowy Sącz, województwo małopolskie, Polska',
-			// 		class: 'boundary',
-			// 		type: 'administrative',
-			// 		importance: 0.7314336040798202,
-			// 		icon: 'https://nominatim.openstreetmap.org/ui/mapicons/poi_boundary_administrative.p.20.png',
-			// 		address: {
-			// 			administrative: 'Nowy Sącz',
-			// 			city: 'Nowy Sącz',
-			// 			state: 'województwo małopolskie',
-			// 			'ISO3166-2-lvl4': 'PL-12',
-			// 			country: 'Polska',
-			// 			country_code: 'pl',
-			// 		},
-			// 	},
-			// ]);
-		}
+		// setPlacesArray(DUMMY_PLACES_ARRAY);
 
 		// przy każdym dodaniu miejsca updatuje db
 		(async () => await apiAdd(place))();
@@ -200,16 +96,19 @@ export default function Map() {
 
 	if (placesArray) {
 		var placesParagraph = placesArray.map((elem: place) => {
-			const placeName = elem.display_name.split(', ');
-			return (
-				<Link
-					href={`/map/${elem.place_id}`}
-					key={elem.place_id}
-					className={style.place}
-				>
-					<span>{placeName[0]}</span>, {placeName[1]}
-				</Link>
-			);
+			// sprawdza czy obiekt nie jest pusty
+			if (elem.display_name) {
+				const placeName = elem.display_name.split(', ');
+				return (
+					<Link
+						href={`/map/${elem.place_id}`}
+						key={elem.place_id}
+						className={style.place}
+					>
+						<span>{placeName[0]}</span>, {placeName[1]}
+					</Link>
+				);
+			}
 		});
 	}
 
