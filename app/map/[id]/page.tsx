@@ -5,6 +5,8 @@ import WeatherChart from '@/components/chart';
 
 import { dbPlace } from '@/types/mapTypes';
 import { weather } from '@/types/chartTypes';
+import style from '@/sass/Place.module.scss';
+import useWeatherHours from '@/hooks/useWeatherHours';
 
 async function getData(id: any) {
 	const res = await fetch(
@@ -46,15 +48,29 @@ export default function PlacesId({ params }: any) {
 
 	const placeName = place ? place.dataDB.display_name.split(', ')[0] : '';
 
-	// if (weather) {
-	// 	console.log(weather);
-	// }
+	const { weatherHours, currentTime } = useWeatherHours(weather, 24);
+
+	if (weather) {
+		console.log(weather);
+	}
+
+	const weatherData = weatherHours.map((elem: any, index: number) => {
+		const temperature = weather!.hourly.temperature_2m[index + currentTime];
+		return (
+			<div key={index}>
+				<p>{temperature}</p>
+				<p>{weatherHours[index]}</p>
+			</div>
+		);
+	});
+	console.log(weatherData);
 
 	// TODO ostylowanie
 	return (
-		<div>
-			<p>{placeName}</p>
-			{weather && <WeatherChart weather={weather} placeName={placeName} />}
-		</div>
+		<main className={style.main}>
+			<h1 className={style.header}>{placeName}</h1>
+			<div className={style.weatherScrollBar}>{weatherData}</div>
+			{/* {weather && <WeatherChart weather={weather} placeName={placeName} />} */}
+		</main>
 	);
 }

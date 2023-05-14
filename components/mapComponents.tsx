@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import leaflet from 'leaflet';
 
-import style from '../sass/components/Map.module.scss';
+import style from '../sass/MapLoader.module.scss';
 import icon from '../public/favicon.ico';
 
 import { place } from '../types/mapTypes';

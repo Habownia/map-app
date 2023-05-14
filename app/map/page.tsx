@@ -4,12 +4,11 @@ import dynamic from 'next/dynamic';
 
 import { uniqueArray, apiAdd } from '@/components/dbActions';
 import { TbSearch } from 'react-icons/tb';
-// import { MapLoader } from '@/components/mapComponents';
 
 // żeby się nie rozwaliła mapa
 import 'leaflet/dist/leaflet.css';
-import style from '../../sass/Map.module.scss';
-import mapStyle from '../../sass/components/Map.module.scss';
+import style from '../../sass/MapPage.module.scss';
+import mapLoaderStyle from '../../sass/MapLoader.module.scss';
 
 import { place } from '../../types/mapTypes';
 import Link from 'next/link';
@@ -33,7 +32,7 @@ export default function Map() {
 		() =>
 			dynamic(() => import('../../components/map'), {
 				loading: () => (
-					<div className={`${mapStyle.loader} ${mapStyle.map_container}`}>
+					<div className={`${mapLoaderStyle.loader} ${mapLoaderStyle.map_container}`}>
 						<p>Loading</p>
 					</div>
 				),

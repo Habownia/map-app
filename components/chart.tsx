@@ -17,6 +17,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import { weather } from '@/types/chartTypes';
 import { useEffect, useState } from 'react';
+import useWeatherHours from '../hooks/useWeatherHours';
 
 ChartJS.register(
 	CategoryScale,
@@ -49,24 +50,8 @@ export default function WeatherChart({
 	weather: weather;
 	placeName: any;
 }) {
-	const [currentTime, setCurrentTime] = useState<number>(0);
-	useEffect(() => {
-		setCurrentTime(new Date().getHours() as number);
-	}, []);
-
-	// jeśli wolimy mieć na więcej godzin zmieniamy zmienną
-	const forecastHours = 24 + currentTime;
-	const weatherHours = [];
-
-	// console.log(weather);
-
-	for (
-		let i = currentTime;
-		i < weather.hourly.time.length && i <= forecastHours;
-		i++
-	) {
-		weatherHours.push(weather.hourly.time[i].split('T')[1]);
-	}
+	// jeśli wolimy mieć na więcej godzin zmieniamy parametr
+	const { weatherHours, currentTime } = useWeatherHours(weather, 24);
 
 	const data = {
 		labels: weatherHours,

@@ -5,7 +5,7 @@ import { myIcon, ChangeView, getPosition } from './mapComponents';
 
 import { place } from '../types/mapTypes';
 
-import style from '../sass/components/Map.module.scss';
+import style from '../sass/MapLoader.module.scss';
 
 export default function Map({ placesArray }: any) {
 	const [position, setPosition] = useState<[number, number]>([51.505, -0.09]);
