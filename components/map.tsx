@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 
-import { myIcon, ChangeView, getPosition } from './mapComponents';
+import { myIcon, ChangeView, getPosition } from '../utils/mapComponents';
 
 import { place } from '../types/mapTypes';
 

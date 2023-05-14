@@ -2,7 +2,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
-import { uniqueArray, apiAdd } from '@/components/dbActions';
+import { uniqueArray, apiAdd } from '@/utils/dbActions';
 import { TbSearch } from 'react-icons/tb';
 
 // żeby się nie rozwaliła mapa
@@ -32,7 +32,9 @@ export default function Map() {
 		() =>
 			dynamic(() => import('../../components/map'), {
 				loading: () => (
-					<div className={`${mapLoaderStyle.loader} ${mapLoaderStyle.map_container}`}>
+					<div
+						className={`${mapLoaderStyle.loader} ${mapLoaderStyle.map_container}`}
+					>
 						<p>Loading</p>
 					</div>
 				),

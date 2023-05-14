@@ -1,5 +1,5 @@
 'use client';
-import { uniqueArray } from '@/components/dbActions';
+import { uniqueArray } from '@/utils/dbActions';
 import { useState } from 'react';
 
 import styles from '../../sass/Test.module.scss';
